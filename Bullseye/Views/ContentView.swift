@@ -20,7 +20,7 @@ struct ContentView: View {
         ZStack {
             //rgb 243,248,253
             
-            Color(red: 243.0 / 255.0, green: 248.0 / 255.0, blue: 253.0 / 255.0)
+            Color("BackgroundColor")
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             VStack {
                 Text("🎯🎯🎯\nPut the bullseye as close as you can to".uppercased())
@@ -29,16 +29,20 @@ struct ContentView: View {
                     .multilineTextAlignment(.center)
                     .lineSpacing(4.0)
                     .font(.footnote)
+                    .foregroundColor(Color("TextView"))
                 Text(String(game.target))
                     .kerning(-1.0)
                     .font(.largeTitle)
                     .fontWeight(.black)
+                    .foregroundColor(Color("TextView"))
                 HStack {
                     Text("1")
                         .bold()
+                        .foregroundColor(Color("TextView"))
                     Slider(value: $sliderValue, in: 1.0...100.0)
                     Text("100")
                         .bold()
+                        .foregroundColor(Color("TextView"))
                 }
                 .padding()
                 Button(action: {
@@ -50,7 +54,12 @@ struct ContentView: View {
                         .font(.title3)
                 }
                 .padding(20.0)
-                .background(Color.blue)
+                .background(ZStack {
+                    Color("ButtnColor")
+                    LinearGradient(gradient:
+                    Gradient(colors: [Color.white.opacity(0.3),
+                                      Color.clear]), startPoint: .top, endPoint: .bottom)
+                })
                 .foregroundColor(Color.white)
                 .cornerRadius(21.0)
              
@@ -67,5 +76,13 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+        ContentView()
+            .previewLayout(.fixed(width: 568, height: 320))
+        
+        ContentView()
+            .preferredColorScheme(.dark)
+        ContentView()
+            .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
+            .previewLayout(.fixed(width: 568, height: 320))
     }
 }
